@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wissenswerk - Die Lösung gegen Wissensverlust</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Design: "Industrial Reliability" -->
+    <!-- Slate (Technik) & Emerald (Wachstum/Sicherheit) -->
+    
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #F8FAFC; /* Slate 50 */
+            color: #1E293B; /* Slate 800 */
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .nav-link.active {
+            color: #059669; /* Emerald 600 */
+            border-bottom: 2px solid #059669;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #059669;
+        }
+
+        /* Technical Connectors */
+        .step-connector {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 2rem;
+            height: 2px;
+            background-color: #E2E8F0; /* Slate 200 */
+            z-index: 0;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .step-connector { display: block; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-industry text-emerald-600 text-xl mr-3"></i>
+                    <span class="font-bold text-xl tracking-tight text-slate-800 uppercase" style="letter-spacing: 0.05em;">Wissenswerk</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center" id="nav-links">
+                    <button onclick="navigateTo('executive')" class="nav-link active px-1 pt-1 text-sm font-medium text-slate-900 focus:outline-none">Übersicht</button>
+                    <button onclick="navigateTo('methodology')" class="nav-link px-1 pt-1 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none">Methodik</button>
+                    <button onclick="navigateTo('cases')" class="nav-link px-1 pt-1 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none">Praxis</button>
+                    <button onclick="navigateTo('tech')" class="nav-link px-1 pt-1 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none">Technologie</button>
+                    <button onclick="navigateTo('roi')" class="nav-link px-1 pt-1 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none">ROI</button>
+                    <button onclick="navigateTo('playbook')" class="nav-link px-1 pt-1 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none">Unser Service</button>
+                </div>
+                <!-- Mobile Menu Icon -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-slate-500 hover:text-slate-900 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 p-4 space-y-2">
+            <button onclick="navigateTo('executive')" class="block w-full text-left px-2 py-2 text-slate-600 font-medium hover:bg-slate-50 rounded">Übersicht</button>
+            <button onclick="navigateTo('methodology')" class="block w-full text-left px-2 py-2 text-slate-600 font-medium hover:bg-slate-50 rounded">Methodik</button>
+            <button onclick="navigateTo('cases')" class="block w-full text-left px-2 py-2 text-slate-600 font-medium hover:bg-slate-50 rounded">Praxis</button>
+            <button onclick="navigateTo('roi')" class="block w-full text-left px-2 py-2 text-slate-600 font-medium hover:bg-slate-50 rounded">ROI</button>
+            <button onclick="navigateTo('playbook')" class="block w-full text-left px-2 py-2 text-slate-600 font-medium hover:bg-slate-50 rounded">Unser Service</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+
+        <!-- Executive Summary Section -->
+        <section id="executive" class="section-container">
+            <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-8 mb-8">
+                <div class="max-w-4xl">
+                    <div class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-1 rounded mb-4 uppercase tracking-wider">Industrial Knowledge Preservation</div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Ihr Betriebssystem für Erfahrungswissen.</h1>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                        Ihre erfahrensten Techniker und Ingenieure gehen bald in den Ruhestand. Wir sichern ihr Lebenswerk.
+                        <strong>Wissenswerk</strong> ist der Full-Service Partner, der dieses kritische Prozesswissen ("Tacit Knowledge") extrahiert und für die nächste Generation nutzbar macht.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 border-t border-slate-100 pt-8">
+                        <div class="p-4 bg-slate-50 rounded border border-slate-100 text-center md:text-left">
+                            <div class="text-emerald-600 font-bold text-3xl mb-1">60-80%</div>
+                            <div class="text-xs text-slate-500 font-bold uppercase tracking-wide">Implizites Wissen</div>
+                            <p class="text-xs text-slate-400 mt-1">Nicht in Handbüchern dokumentiert.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded border border-slate-100 text-center md:text-left">
+                            <div class="text-emerald-600 font-bold text-3xl mb-1">1 : ∞</div>
+                            <div class="text-xs text-slate-500 font-bold uppercase tracking-wide">Skalierung</div>
+                            <p class="text-xs text-slate-400 mt-1">Einmal aufnehmen, unendlich oft anlernen.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded border border-slate-100 text-center md:text-left">
+                            <div class="text-emerald-600 font-bold text-3xl mb-1">-40%</div>
+                            <div class="text-xs text-slate-500 font-bold uppercase tracking-wide">Time-to-Productivity</div>
+                            <p class="text-xs text-slate-400 mt-1">Schnellere Einarbeitung am Shopfloor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-slate-100 p-6 rounded-lg border border-slate-200">
+                    <h3 class="font-bold text-slate-800 mb-2 flex items-center"><i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i>Das Problem</h3>
+                    <p class="text-slate-600 text-sm">Wiki-Systeme und Handbücher verstauben. Sie erfassen nicht das "Fingerspitzengefühl" an der Maschine, das Verhalten von Werkstoffen bei Temperaturschwankungen oder historische Kontextentscheidungen.</p>
+                </div>
+                <div class="bg-emerald-50 p-6 rounded-lg border border-emerald-100">
+                    <h3 class="font-bold text-emerald-900 mb-2 flex items-center"><i class="fa-solid fa-check-circle text-emerald-600 mr-2"></i>Der Wissenswerk-Ansatz</h3>
+                    <p class="text-emerald-800 text-sm">Wir nutzen das gesprochene Wort und das bewegte Bild. Ihre Experten erzählen und zeigen. Wir verwandeln dies in <strong>Audio-Guides, Video-Tutorials, interaktive Simulationen und KI-Agenten</strong>, die bei Problemen assistieren.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Methodik Matrix Section -->
+        <section id="methodology" class="section-container hidden">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900">Industrielle Erfassungsmethodik</h2>
+                <p class="text-slate-600 mt-2">Das richtige Werkzeug für Produktions- und Prozesswissen.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <!-- Controls -->
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-semibold text-slate-800 mb-3 text-sm uppercase tracking-wide">Wissensdomäne</h3>
+                        <div class="space-y-2" id="knowledge-buttons">
+                            <!-- Buttons generated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matrix Display -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 mb-4 flex items-center justify-between">
+                            <span id="matrix-title">Übersicht Erfassungsmethoden</span>
+                            <span class="text-xs font-normal text-slate-400 bg-slate-100 px-2 py-1 rounded">Mittelstand-Fokus</span>
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="matrix-cards">
+                            <!-- Matrix cards generated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Studies Section -->
+        <section id="cases" class="section-container hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900">Praxis-Beispiele</h2>
+                <p class="text-slate-600 mt-1">Anonymisierte Szenarien aus echten Mittelstands-Projekten.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="case-study-grid">
+                <!-- Cards generated by JS -->
+            </div>
+        </section>
+
+        <!-- ROI Section (Calculations) -->
+        <section id="roi" class="section-container hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900">Wertschöpfung & ROI</h2>
+                <p class="text-slate-600 mt-2">Wissen ist Kapital. Hier sind zwei konkrete Berechnungsbeispiele.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Calculation 1 -->
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 p-4 border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800">Szenario A: Der Instandhalter</h3>
+                        <i class="fa-solid fa-wrench text-slate-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-slate-600 mb-4">Ein erfahrener Instandhalter (kurz vor Rente) kennt den "Trick", um die Verpackungsanlage bei Störung X in 10 Min. wieder flott zu bekommen. Der Nachfolger braucht ohne dieses Wissen 2 Stunden (inkl. Service-Hotline).</p>
+                        
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-slate-100">
+                                <span class="text-slate-500">Kosten Maschinenstillstand (pro Std.)</span>
+                                <span class="font-mono font-semibold">€5.000</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-slate-100">
+                                <span class="text-slate-500">Häufigkeit Störung (pro Jahr)</span>
+                                <span class="font-mono font-semibold">12x</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-slate-100">
+                                <span class="text-slate-500">Differenz Stillstandzeit (Nachfolger vs. Experte)</span>
+                                <span class="font-mono font-semibold">1,8 Std.</span>
+                            </div>
+                            <div class="flex justify-between py-3 bg-emerald-50 px-2 rounded mt-2">
+                                <span class="text-emerald-800 font-bold">Jährliche Einsparung durch Wissenswerk</span>
+                                <span class="font-mono font-bold text-emerald-700">€108.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculation 2 -->
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 p-4 border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800">Szenario B: Der Verfahrensingenieur</h3>
+                        <i class="fa-solid fa-flask text-slate-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-slate-600 mb-4">Onboarding eines neuen Ingenieurs in der Extrusion. Mit klassischem "Learning by Doing" dauert es 18 Monate bis zur vollen Produktivität. Mit KI-gestütztem Mentoring durch das Wissen des Vorgängers nur 9 Monate.</p>
+                        
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-slate-100">
+                                <span class="text-slate-500">Jahresgehalt inkl. LNK</span>
+                                <span class="font-mono font-semibold">€85.000</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-slate-100">
+                                <span class="text-slate-500">Produktivitätsgewinn (Faktor 0.5 über 9 Mon.)</span>
+                                <span class="font-mono font-semibold">€31.875</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-slate-100">
+                                <span class="text-slate-500">Reduzierter Ausschuss in Lernphase</span>
+                                <span class="font-mono font-semibold">€15.000</span>
+                            </div>
+                            <div class="flex justify-between py-3 bg-emerald-50 px-2 rounded mt-2">
+                                <span class="text-emerald-800 font-bold">Einmaliger Vorteil pro Neueinstellung</span>
+                                <span class="font-mono font-bold text-emerald-700">€46.875</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="tech" class="section-container hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900">Technologie-Pipeline</h2>
+                <p class="text-slate-600 mt-2">State-of-the-Art KI, sicher gehostet für den Mittelstand.</p>
+            </div>
+
+            <!-- Flow Diagram Container -->
+            <div class="relative bg-white p-8 rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                <!-- Steps Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative z-10">
+                    
+                    <!-- Step 1 -->
+                    <div class="flex flex-col items-center group cursor-pointer" onclick="showTechDetail('capture')">
+                        <div class="w-16 h-16 rounded bg-slate-100 border-2 border-slate-300 flex items-center justify-center mb-3 group-hover:border-emerald-500 group-hover:bg-emerald-50 transition-colors relative">
+                            <i class="fa-solid fa-microphone-lines text-slate-500 group-hover:text-emerald-600 text-xl"></i>
+                            <div class="hidden md:block absolute top-1/2 left-full w-full h-0.5 bg-slate-200 -z-10 transform translate-x-2"></div>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm text-center">1. Input</h4>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex flex-col items-center group cursor-pointer" onclick="showTechDetail('transcribe')">
+                        <div class="w-16 h-16 rounded bg-slate-100 border-2 border-slate-300 flex items-center justify-center mb-3 group-hover:border-emerald-500 group-hover:bg-emerald-50 transition-colors relative">
+                            <i class="fa-solid fa-wave-square text-slate-500 group-hover:text-emerald-600 text-xl"></i>
+                            <div class="hidden md:block absolute top-1/2 left-full w-full h-0.5 bg-slate-200 -z-10 transform translate-x-2"></div>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm text-center">2. KI-Transkription</h4>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex flex-col items-center group cursor-pointer" onclick="showTechDetail('structure')">
+                        <div class="w-16 h-16 rounded bg-slate-100 border-2 border-slate-300 flex items-center justify-center mb-3 group-hover:border-emerald-500 group-hover:bg-emerald-50 transition-colors relative">
+                            <i class="fa-solid fa-cubes-stacked text-slate-500 group-hover:text-emerald-600 text-xl"></i>
+                            <div class="hidden md:block absolute top-1/2 left-full w-full h-0.5 bg-slate-200 -z-10 transform translate-x-2"></div>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm text-center">3. Synthese</h4>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex flex-col items-center group cursor-pointer" onclick="showTechDetail('rag')">
+                        <div class="w-16 h-16 rounded bg-slate-100 border-2 border-slate-300 flex items-center justify-center mb-3 group-hover:border-emerald-500 group-hover:bg-emerald-50 transition-colors relative">
+                            <i class="fa-solid fa-project-diagram text-slate-500 group-hover:text-emerald-600 text-xl"></i>
+                            <div class="hidden md:block absolute top-1/2 left-full w-full h-0.5 bg-slate-200 -z-10 transform translate-x-2"></div>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm text-center">4. Wissens-Graph</h4>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="flex flex-col items-center group cursor-pointer" onclick="showTechDetail('deliver')">
+                        <div class="w-16 h-16 rounded bg-slate-100 border-2 border-slate-300 flex items-center justify-center mb-3 group-hover:border-emerald-500 group-hover:bg-emerald-50 transition-colors">
+                            <i class="fa-solid fa-robot text-slate-500 group-hover:text-emerald-600 text-xl"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm text-center">5. Interaktion</h4>
+                    </div>
+                </div>
+
+                <!-- Dynamic Detail Box -->
+                <div class="mt-10 bg-slate-50 border border-slate-200 rounded p-6 transition-all duration-300" id="tech-detail-panel">
+                    <h3 class="text-lg font-bold text-emerald-800 mb-2" id="tech-title">Wählen Sie einen Schritt</h3>
+                    <p class="text-slate-600 text-sm" id="tech-desc">Klicken Sie oben auf die Icons.</p>
+                    <div class="mt-4 flex flex-wrap gap-2" id="tech-tags"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Playbook / Service Section -->
+        <section id="playbook" class="section-container hidden">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-slate-900">Unser Service-Modell</h2>
+                <p class="text-slate-600 mt-2">Wir liefern keine nackte Software, sondern ein schlüsselfertiges System.</p>
+            </div>
+
+            <div class="space-y-4" id="accordion-container">
+                <!-- Accordion Items generated by JS -->
+            </div>
+            
+            <div class="mt-8 bg-slate-800 text-slate-100 p-6 rounded-lg shadow-md">
+                <h3 class="font-bold text-lg mb-2 text-white"><i class="fa-solid fa-handshake mr-2"></i>Das Versprechen</h3>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    Wissenswerk übernimmt den initialen Aufbau, die Durchführung der Interviews und die Strukturierung der Daten. 
+                    Am Ende der Projektphase übergeben wir Ihnen ein "laufendes System", das Ihr Team selbstständig weiter nutzen kann, 
+                    ohne dauerhaft von unseren Beratern abhängig zu sein.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+            <p class="font-bold text-slate-700">Wissenswerk GmbH (i.G.)</p>
+            <p>&copy; 2025. Made for German Engineering.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- DATA & CONTENT ---
+
+        const knowledgeTypes = {
+            'process': {
+                label: 'Prozess & Handgriffe',
+                desc: 'Wie genau wird die Maschine gerüstet? Wie wird das Material eingelegt?',
+                methods: [
+                    { title: 'Video-Aufzeichnung', score: 95, detail: 'GoPro oder SmartGlasses Aufnahme des Rüstvorgangs.', icon: 'fa-video' },
+                    { title: 'Audio-Kommentierung', score: 90, detail: 'Experte kommentiert während er arbeitet ("Hier aufpassen, heiß!").', icon: 'fa-microphone' },
+                    { title: 'Schriftliche SOP', score: 40, detail: 'Oft veraltet und ignoriert Nuancen.', icon: 'fa-file-lines' }
+                ]
+            },
+            'implicit': {
+                label: 'Implizites Erfahrungswissen',
+                desc: 'Warum machen wir das so? Verhalten bei Materialschwankungen.',
+                methods: [
+                    { title: 'Narratives Interview', score: 95, detail: 'Gezieltes Abfragen von "Bauchgefühl"-Entscheidungen bei Grenzfällen.', icon: 'fa-comments' },
+                    { title: 'Beobachtung', score: 80, detail: 'Shadowing durch Junior, Protokollierung durch KI.', icon: 'fa-eye' }
+                ]
+            },
+            'trouble': {
+                label: 'Störung & Diagnose',
+                desc: 'Woran erkenne ich den Fehler, bevor er passiert? (Geräusche, Vibration)',
+                methods: [
+                    { title: 'Szenario-Interview', score: 95, detail: '"Was tust du, wenn die Temperaturkurve so aussieht?"', icon: 'fa-sitemap' },
+                    { title: 'Multimodal-Analyse', score: 85, detail: 'Verbindung von Maschinendaten (Logs) mit Experten-Stimme.', icon: 'fa-chart-line' },
+                ]
+            }
+        };
+
+        const caseStudies = [
+            {
+                industry: 'Kunststofftechnik',
+                title: '"PolymerTech" (Hidden Champion)',
+                challenge: 'Einrichter für Extrusionsanlagen gingen in Rente. Das Wissen über Temperatureinstellungen bei speziellen Rezyklaten drohte verloren zu gehen.',
+                solution: 'Video-Begleitung der Rüstprozesse + Interview zu Material-Eigenschaften.',
+                result: 'Ausschuss bei Schichtwechsel um 15% reduziert.',
+                tags: ['Extrusion', 'Materialwissen', 'Rüstzeit']
+            },
+            {
+                industry: 'Spezialmaschinenbau',
+                title: '"MetalForm Systems"',
+                challenge: 'Service-Techniker im weltweiten Einsatz. Bei komplexen Störungen mussten oft Experten eingeflogen werden.',
+                solution: 'KI-gestützte Fehlerdiagnose-App basierend auf Interviews mit den Top-3 Senior-Technikern.',
+                result: 'First-Time-Fix Rate remote um 30% gesteigert.',
+                tags: ['Service', 'Remote', 'Diagnose']
+            },
+            {
+                industry: 'Chemie / Verfahrenstechnik',
+                title: '"ChemProcess KG"',
+                challenge: 'Sicherheitskritische Anlagenfahrweise. Notfallwissen lag nur bei wenigen Köpfen.',
+                solution: 'Simulation von Störfällen ("Kritische Ereignisse") im Interview und Erstellung interaktiver Trainings.',
+                result: 'Zertifizierungsprozess für neue Mitarbeiter um 4 Wochen verkürzt.',
+                tags: ['Sicherheit', 'Compliance', 'Training']
+            }
+        ];
+
+        const techDetails = {
+            'capture': {
+                title: '1. Input & Aufnahme',
+                desc: 'Wir nutzen das, was in der Produktion funktioniert: Robuste Tablets, Bodycams oder Sprachaufnahmen im lauten Umfeld.',
+                tags: ['Smart Glasses', 'Industrie-Tablets', 'Noise-Cancelling Audio']
+            },
+            'transcribe': {
+                title: '2. KI-Transkription',
+                desc: 'Hochpräzise Sprachmodelle, die auch Dialekte und Fachjargon (z.B. "Extruder", "SPS") verstehen. DSGVO-konforme Anonymisierung von Namen.',
+                tags: ['Speech-to-Text', 'Speaker Diarization', 'PII Filter']
+            },
+            'structure': {
+                title: '3. Synthese & Struktur',
+                desc: 'KI extrahiert Kernaussagen. Aus "Man muss da halt am Rad drehen bis es passt" wird: "Schritt 4: Feinjustierung Ventil A bei Druck < 5 bar".',
+                tags: ['Information Extraction', 'Summarization', 'Step-by-Step Logic']
+            },
+            'rag': {
+                title: '4. Wissens-Graph & Suche',
+                desc: 'Wir speichern Wissen nicht nur als Text, sondern als vernetztes Verständnis (GraphRAG / Vektor-DB). So findet die KI Zusammenhänge zwischen Maschine A und Material B.',
+                tags: ['GraphRAG', 'Vector Embeddings', 'Hybrid Search']
+            },
+            'deliver': {
+                title: '5. Interaktion & Nutzung',
+                desc: 'Das Wissen landet dort, wo es gebraucht wird: Auf dem Wartungs-Tablet, als Sprach-Assistent am Ohr oder als Checkliste im MES.',
+                tags: ['Tablet App', 'Voice Assistant', 'QR-Code Integration']
+            }
+        };
+
+        const playbookSteps = [
+            {
+                title: "1. Analyse & Identifikation (Service)",
+                content: "Wir kommen zu Ihnen. Gemeinsam mit der Produktionsleitung identifizieren wir die kritischen 'Flaschenhälse' und Experten, die bald ausscheiden."
+            },
+            {
+                title: "2. Die 'Wissens-Ernte' (Service)",
+                content: "Unser Team führt die Interviews und begleitet die Mitarbeiter an der Maschine. Wir bringen das Equipment mit. Ihr Experte muss nichts vorbereiten, nur seinen Job machen und reden."
+            },
+            {
+                title: "3. Aufbau des Kernsystems (Service)",
+                content: "Wir füttern das Wissenswerk mit den Daten. Wir trainieren die KI auf Ihr spezifisches Vokabular und Ihre Maschinenbezeichnungen."
+            },
+            {
+                title: "4. Handover & Schulung",
+                content: "Wir übergeben Ihnen ein gefülltes, funktionierendes System. Wir schulen Ihre Key-User, wie sie künftig selbstständig neues Wissen (z.B. per Handy-Video) hinzufügen können."
+            },
+            {
+                title: "5. Autonome Nutzung",
+                content: "Wissenswerk läuft jetzt in Ihrer Infrastruktur. Sie sind unabhängig und können das System organisch wachsen lassen."
+            }
+        ];
+
+        // --- STATE MANAGEMENT ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMatrixButtons();
+            renderCases();
+            renderPlaybook();
+            showTechDetail('capture');
+        });
+
+        // --- NAVIGATION ---
+        function navigateTo(sectionId) {
+            document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+            const activeLink = Array.from(document.querySelectorAll('.nav-link')).find(el => el.getAttribute('onclick')?.includes(sectionId));
+            if(activeLink) activeLink.classList.add('active');
+
+            document.querySelectorAll('section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(sectionId).classList.remove('hidden');
+            document.getElementById('mobile-menu').classList.add('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // --- RENDER FUNCTIONS ---
+        function renderMatrixButtons() {
+            const container = document.getElementById('knowledge-buttons');
+            const keys = Object.keys(knowledgeTypes);
+            
+            keys.forEach((key, index) => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left px-4 py-3 rounded border transition-colors ${index === 0 ? 'bg-emerald-50 border-emerald-500 text-emerald-800' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`;
+                btn.innerHTML = `<span class="font-bold block text-sm">${knowledgeTypes[key].label}</span>`;
+                btn.onclick = () => selectKnowledgeType(key, btn);
+                container.appendChild(btn);
+            });
+            selectKnowledgeType(keys[0], container.children[0]);
+        }
+
+        function selectKnowledgeType(key, btnElement) {
+            const buttons = document.getElementById('knowledge-buttons').children;
+            for(let btn of buttons) {
+                btn.classList.remove('bg-emerald-50', 'border-emerald-500', 'text-emerald-800');
+                btn.classList.add('bg-white', 'border-slate-200', 'text-slate-600');
+            }
+            btnElement.classList.remove('bg-white', 'border-slate-200', 'text-slate-600');
+            btnElement.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-800');
+
+            const data = knowledgeTypes[key];
+            const cardContainer = document.getElementById('matrix-cards');
+            cardContainer.innerHTML = '';
+
+            data.methods.forEach(method => {
+                let barColor = method.score > 80 ? 'bg-emerald-500' : (method.score > 50 ? 'bg-amber-400' : 'bg-red-300');
+                cardContainer.innerHTML += `
+                    <div class="bg-white border border-slate-100 p-4 rounded hover:border-emerald-300 transition-all">
+                        <div class="flex items-center mb-2">
+                            <div class="w-8 h-8 rounded bg-slate-100 flex items-center justify-center mr-3 text-slate-500"><i class="fa-solid ${method.icon}"></i></div>
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-slate-800 text-sm">${method.title}</h4>
+                                <div class="w-full bg-slate-200 rounded-full h-1.5 mt-1"><div class="${barColor} h-1.5 rounded-full" style="width: ${method.score}%"></div></div>
+                            </div>
+                            <span class="text-xs font-bold ml-2 text-slate-500">${method.score}%</span>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-snug">${method.detail}</p>
+                    </div>`;
+            });
+        }
+
+        function renderCases() {
+            const container = document.getElementById('case-study-grid');
+            caseStudies.forEach(c => {
+                container.innerHTML += `
+                    <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-6 card-hover flex flex-col h-full">
+                        <div class="mb-4">
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2 py-1 rounded">${c.industry}</span>
+                            <h3 class="font-bold text-lg text-slate-900 mt-2 leading-tight">${c.title}</h3>
+                        </div>
+                        <div class="flex-grow space-y-3">
+                            <div><p class="text-xs font-bold text-slate-700">Problem:</p><p class="text-sm text-slate-600">${c.challenge}</p></div>
+                            <div><p class="text-xs font-bold text-slate-700">Lösung:</p><p class="text-sm text-slate-600">${c.solution}</p></div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-100">
+                             <p class="text-xs font-bold text-slate-700 mb-2">Ergebnis:</p>
+                             <p class="text-sm font-semibold text-emerald-700"><i class="fa-solid fa-check mr-1"></i>${c.result}</p>
+                             <div class="mt-3 flex flex-wrap gap-1">${c.tags.map(t => `<span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded border border-slate-200">${t}</span>`).join('')}</div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function renderPlaybook() {
+            const container = document.getElementById('accordion-container');
+            playbookSteps.forEach(step => {
+                container.innerHTML += `
+                    <details class="group bg-white rounded-lg border border-slate-200 open:ring-2 open:ring-emerald-100 transition-all shadow-sm">
+                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4">
+                            <span class="text-slate-800 group-open:text-emerald-800 transition-colors">${step.title}</span>
+                            <span class="transition group-open:rotate-180"><i class="fa-solid fa-chevron-down text-slate-400"></i></span>
+                        </summary>
+                        <div class="text-slate-600 px-4 pb-4 text-sm leading-relaxed border-t border-slate-100 pt-2 group-open:animate-fadeIn bg-slate-50 rounded-b-lg">${step.content}</div>
+                    </details>`;
+            });
+        }
+
+        function showTechDetail(stepKey) {
+            const data = techDetails[stepKey];
+            document.getElementById('tech-title').textContent = data.title;
+            document.getElementById('tech-desc').textContent = data.desc;
+            document.getElementById('tech-tags').innerHTML = data.tags.map(tag => `<span class="bg-white border border-slate-300 text-slate-600 px-2 py-1 rounded text-xs shadow-sm font-medium">${tag}</span>`).join('');
+            
+            const panel = document.getElementById('tech-detail-panel');
+            panel.classList.remove('opacity-100');
+            panel.classList.add('opacity-50');
+            setTimeout(() => { panel.classList.remove('opacity-50'); panel.classList.add('opacity-100'); }, 150);
+        }
+    </script>
+</body>
+</html>
