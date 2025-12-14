@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wissenswerk - Expertenwissen skalieren</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: { 850: '#1e293b' },
+                        emerald: { 650: '#047857' },
+                        blue: { 950: '#172554' } // Adding deep blue for "Offense/Business" feel
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #F8FAFC; color: #334155; }
+        
+        /* Dynamic Header Underline */
+        .section-header { position: relative; display: inline-block; margin-bottom: 0.5rem; }
+        .section-header::after {
+            content: ''; position: absolute; bottom: -8px; left: 0; width: 60px; height: 4px;
+            background: linear-gradient(90deg, #10B981 0%, #3B82F6 100%); /* Emerald to Blue Gradient */
+            border-radius: 2px;
+        }
+
+        .nav-link.active { color: #059669; font-weight: 600; }
+        
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1); border-color: #10B981; }
+
+        /* Timeline & Animations */
+        .timeline-line { position: absolute; left: 24px; top: 24px; bottom: -24px; width: 2px; background-color: #E2E8F0; z-index: 0; }
+        .timeline-item:last-child .timeline-line { display: none; }
+        
+        /* Toggle Switch Animation */
+        .toggle-checkbox:checked { right: 0; border-color: #10B981; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #10B981; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-2 rounded mr-3 shadow-md">
+                        <i class="fa-solid fa-network-wired text-lg"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-800 uppercase" style="letter-spacing: 0.05em;">Wissenswerk</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center" id="nav-links">
+                    <button onclick="navigateTo('executive')" class="nav-link active text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Start</button>
+                    <button onclick="navigateTo('strategy')" class="nav-link text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Strategie</button>
+                    <button onclick="navigateTo('roi')" class="nav-link text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">ROI & Wachstum</button>
+                    <button onclick="navigateTo('cases')" class="nav-link text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Praxis</button>
+                    <button onclick="navigateTo('contact')" class="ml-4 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded shadow-lg shadow-emerald-600/20 text-sm font-bold transition-all transform hover:-translate-y-0.5">
+                        Potenzialanalyse
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-slate-500 hover:text-slate-900 p-2"><i class="fa-solid fa-bars text-xl"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 p-4 space-y-2 shadow-lg">
+            <button onclick="navigateTo('executive')" class="block w-full text-left px-4 py-3 text-slate-700 font-medium">Start</button>
+            <button onclick="navigateTo('strategy')" class="block w-full text-left px-4 py-3 text-slate-700 font-medium">Strategie</button>
+            <button onclick="navigateTo('roi')" class="block w-full text-left px-4 py-3 text-slate-700 font-medium">ROI</button>
+            <button onclick="navigateTo('contact')" class="block w-full text-left px-4 py-3 bg-emerald-50 text-emerald-700 font-bold rounded mt-2">Kontakt</button>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+
+        <!-- Hero: The "Scaling" Pivot -->
+        <section id="executive" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1.5 rounded-full mb-6 uppercase tracking-wider border border-slate-200">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        Industrial Knowledge Scaling
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+                        Skalieren Sie Ihre <br>
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-blue-600">besten Köpfe.</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-xl">
+                        Egal ob <strong>Expansion</strong> ins Ausland oder <strong>Nachfolge</strong> im Stammwerk: 
+                        Wir extrahieren das Erfahrungswissen Ihrer Top-Experten und machen es für neue Mitarbeiter sofort verfügbar. 
+                        Vom Kopf in die Cloud – strukturiert und skalierbar.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="navigateTo('roi')" class="bg-slate-800 hover:bg-slate-900 text-white px-6 py-3.5 rounded font-semibold shadow-lg transition-all flex items-center justify-center gap-2">
+                            <span>Wachstum berechnen</span>
+                            <i class="fa-solid fa-chart-line"></i>
+                        </button>
+                        <button onclick="navigateTo('strategy')" class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-6 py-3.5 rounded font-semibold transition-all flex items-center justify-center">
+                            Strategie wählen
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Hero Stats Grid: Balanced Offense/Defense -->
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Offense Stat -->
+                    <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 rounded-xl shadow-lg flex flex-col justify-between h-44 text-white transform hover:-translate-y-1 transition-transform">
+                        <div class="text-emerald-200"><i class="fa-solid fa-rocket text-3xl"></i></div>
+                        <div>
+                            <div class="text-3xl font-bold">2x</div>
+                            <div class="text-xs text-emerald-100 font-bold uppercase mt-1">Schnelleres Onboarding</div>
+                            <p class="text-[10px] text-emerald-100 opacity-80 mt-1">Time-to-Revenue halbiert</p>
+                        </div>
+                    </div>
+                    <!-- Defense Stat -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-44 transform translate-y-8 hover:translate-y-7 transition-transform">
+                        <div class="text-slate-400"><i class="fa-solid fa-shield-halved text-3xl"></i></div>
+                        <div>
+                            <div class="text-3xl font-bold text-slate-800">100%</div>
+                            <div class="text-xs text-slate-500 font-bold uppercase mt-1">Wissens-Sicherung</div>
+                            <p class="text-[10px] text-slate-400 mt-1">Unabhängig von Renteneintritten</p>
+                        </div>
+                    </div>
+                    <!-- Scale Stat -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-44 transform hover:-translate-y-1 transition-transform">
+                        <div class="text-slate-400"><i class="fa-solid fa-globe text-3xl"></i></div>
+                        <div>
+                            <div class="text-3xl font-bold text-slate-800">1 : ∞</div>
+                            <div class="text-xs text-slate-500 font-bold uppercase mt-1">Standort-Transfer</div>
+                            <p class="text-[10px] text-slate-400 mt-1">Standards weltweit ausrollen</p>
+                        </div>
+                    </div>
+                    <!-- Quote -->
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col justify-center h-44 items-center text-center transform translate-y-8 hover:translate-y-7 transition-transform">
+                        <p class="text-sm text-slate-500 italic">"Wir haben unser Stammwerk-Wissen quasi 'geklont' für den US-Start."</p>
+                        <p class="text-xs font-bold text-slate-800 mt-2">– CEO, Anlagenbau</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategy Split: Defense vs. Offense -->
+        <section id="strategy" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-white border-y border-slate-100">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 section-header">Zwei Herausforderungen, eine Lösung.</h2>
+                <p class="text-slate-600 mt-4 max-w-2xl mx-auto">Ob Sie Wissen bewahren oder vervielfältigen müssen – der Rohstoff ist derselbe: Die Erfahrung Ihrer Experten.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
+                <!-- Defense Column -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 hover:border-slate-300 transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-slate-200 p-3 rounded-lg text-slate-600"><i class="fa-solid fa-shield-halved text-xl"></i></div>
+                        <h3 class="text-xl font-bold text-slate-800">Defensive: Sicherung</h3>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-slate-400 mt-1 mr-3"></i>
+                            <span class="text-sm text-slate-600"><strong>Demografie-Falle:</strong> Kritische Experten gehen in Rente.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-slate-400 mt-1 mr-3"></i>
+                            <span class="text-sm text-slate-600"><strong>Fluktuation:</strong> Wissen wandert zum Wettbewerb ab.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-slate-400 mt-1 mr-3"></i>
+                            <span class="text-sm text-slate-600"><strong>Ausfallsicherheit:</strong> Was, wenn der einzige Experte krank ist?</span>
+                        </li>
+                    </ul>
+                    <div class="bg-white p-4 rounded border border-slate-100 text-center">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Ziel</span>
+                        <p class="font-bold text-slate-800">Risiko-Minimierung & Kontinuität</p>
+                    </div>
+                </div>
+
+                <!-- Offense Column (Highlighted) -->
+                <div class="bg-white rounded-2xl p-8 border-2 border-emerald-100 shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-bl">Wachstums-Treiber</div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-emerald-100 p-3 rounded-lg text-emerald-600"><i class="fa-solid fa-rocket text-xl"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900">Offensive: Expansion</h3>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-emerald-500 mt-1 mr-3"></i>
+                            <span class="text-sm text-slate-700"><strong>Standort-Rollout:</strong> Neue Werke in USA/Asien mit deutschen Qualitätsstandards starten.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-emerald-500 mt-1 mr-3"></i>
+                            <span class="text-sm text-slate-700"><strong>Vertriebs-Skalierung:</strong> Neue Sales-Mitarbeiter verkaufen ab Tag 1 wie Profis.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-check text-emerald-500 mt-1 mr-3"></i>
+                            <span class="text-sm text-slate-700"><strong>Time-to-Market:</strong> Schnelleres Onboarding beschleunigt Projekte.</span>
+                        </li>
+                    </ul>
+                    <div class="bg-emerald-50 p-4 rounded border border-emerald-100 text-center">
+                        <span class="text-xs font-bold text-emerald-600 uppercase">Ziel</span>
+                        <p class="font-bold text-emerald-900">Umsatz-Steigerung & Skalierung</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROI Interactive Switcher -->
+        <section id="roi" class="bg-slate-900 py-20 text-white overflow-hidden relative">
+            <!-- Background elements -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
+                <div class="absolute top-10 left-10 w-64 h-64 bg-emerald-500 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-10 right-10 w-64 h-64 bg-blue-500 rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold section-header after:bg-emerald-500 mx-auto">Der Wert Ihres Wissens</h2>
+                    <p class="text-slate-400 mt-4">Wählen Sie Ihre Perspektive.</p>
+                    
+                    <!-- Switcher Controls -->
+                    <div class="flex justify-center mt-8">
+                        <div class="bg-slate-800 p-1 rounded-lg inline-flex relative">
+                            <div class="w-1/2 h-full absolute transition-all duration-300 bg-emerald-600 rounded-md" id="switch-highlight"></div>
+                            <button onclick="setROI('defense')" class="relative z-10 px-6 py-2 text-sm font-bold transition-colors duration-300 text-white" id="btn-defense">Sicherung (Defense)</button>
+                            <button onclick="setROI('offense')" class="relative z-10 px-6 py-2 text-sm font-bold transition-colors duration-300 text-slate-400 hover:text-white" id="btn-offense">Wachstum (Offense)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROI Content Container -->
+                <div class="max-w-4xl mx-auto">
+                    
+                    <!-- Defense Card -->
+                    <div id="roi-defense" class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-2xl p-8 md:p-12 transition-all duration-500">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="p-3 bg-red-500/20 rounded-lg text-red-400"><i class="fa-solid fa-triangle-exclamation text-2xl"></i></div>
+                            <div>
+                                <h3 class="text-2xl font-bold">Das Risiko des Nicht-Handelns</h3>
+                                <p class="text-slate-400 text-sm">Beispiel: Instandhalter (Spezialwissen) geht in Rente.</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div>
+                                <p class="text-slate-400 text-xs uppercase mb-1">Stillstandkosten / Std</p>
+                                <p class="text-2xl font-mono text-white">€5.000</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-xs uppercase mb-1">Mehrzeit Nachfolger</p>
+                                <p class="text-2xl font-mono text-white">12 Std/Jahr</p>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-xs uppercase mb-1">Jährlicher Verlust</p>
+                                <p class="text-2xl font-mono text-red-400">€60.000</p>
+                            </div>
+                        </div>
+                        <p class="mt-6 text-sm text-slate-400 italic bg-slate-800 p-4 rounded">
+                            "Ohne das Wissen von Herrn Müller steht die Anlage 3x länger still. Das kostet uns Marge."
+                        </p>
+                    </div>
+
+                    <!-- Offense Card (Hidden by default) -->
+                    <div id="roi-offense" class="hidden bg-gradient-to-br from-emerald-900/40 to-slate-800/50 backdrop-blur border border-emerald-500/30 rounded-2xl p-8 md:p-12 transition-all duration-500">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="p-3 bg-emerald-500/20 rounded-lg text-emerald-400"><i class="fa-solid fa-chart-line text-2xl"></i></div>
+                            <div>
+                                <h3 class="text-2xl font-bold">Der Gewinn durch Beschleunigung</h3>
+                                <p class="text-emerald-200/70 text-sm">Beispiel: Neuer Vertriebs-Ingenieur (Time-to-Revenue).</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div>
+                                <p class="text-emerald-200/70 text-xs uppercase mb-1">Umsatz-Ziel / Monat</p>
+                                <p class="text-2xl font-mono text-white">€50.000</p>
+                            </div>
+                            <div>
+                                <p class="text-emerald-200/70 text-xs uppercase mb-1">Onboarding verkürzt um</p>
+                                <p class="text-2xl font-mono text-white">3 Monate</p>
+                            </div>
+                            <div>
+                                <p class="text-emerald-200/70 text-xs uppercase mb-1">Zusatz-Umsatz (Jahr 1)</p>
+                                <p class="text-2xl font-mono text-emerald-400">+ €150.000</p>
+                            </div>
+                        </div>
+                        <p class="mt-6 text-sm text-emerald-100 italic bg-emerald-900/20 p-4 rounded border border-emerald-500/20">
+                            "Unsere neuen Sales-Leute sind nach 4 Wochen so fit wie früher nach 4 Monaten. Das ist purer Umsatz."
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Cases Section -->
+        <section id="cases" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-slate-900 section-header">Erfolgsgeschichten</h2>
+                <p class="text-slate-600 mt-4">Ob Expansion oder Nachfolge – unsere Kunden lösen echte Probleme.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Expansion Case -->
+                <div class="bg-white rounded-xl p-6 border-2 border-emerald-100 shadow-sm hover:shadow-lg transition-all flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 uppercase rounded-bl">Expansion</div>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Anlagenbau</span>
+                        <h3 class="font-bold text-lg text-slate-900 mt-2">"GlobalScale GmbH"</h3>
+                    </div>
+                    <div class="space-y-3 mb-6 flex-grow">
+                        <p class="text-sm text-slate-600"><strong>Challenge:</strong> Eröffnung Werk USA. Deutsche Qualitätsstandards mussten transferiert werden, ohne 10 Ingenieure permanent zu entsenden.</p>
+                        <p class="text-sm text-slate-600"><strong>Lösung:</strong> Video-Guides der deutschen Meister, per KI übersetzt und strukturiert für US-Kollegen.</p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100">
+                        <p class="text-sm font-bold text-emerald-600"><i class="fa-solid fa-arrow-trend-up mr-2"></i>Ramp-up Zeit halbiert</p>
+                    </div>
+                </div>
+
+                <!-- Sales Case (New) -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col h-full relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-[10px] font-bold px-2 py-1 uppercase rounded-bl">Vertrieb</div>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Komponenten-Hersteller</span>
+                        <h3 class="font-bold text-lg text-slate-900 mt-2">"TechSales Co."</h3>
+                    </div>
+                    <div class="space-y-3 mb-6 flex-grow">
+                        <p class="text-sm text-slate-600"><strong>Challenge:</strong> Komplexes Produktportfolio. Neue Sales-Mitarbeiter brauchten 9 Monate, bis sie sicher verkaufen konnten.</p>
+                        <p class="text-sm text-slate-600"><strong>Lösung:</strong> Interaktiver KI-Chatbot, gefüttert mit dem Wissen der Top-Verkäufer ("Einwandbehandlung").</p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100">
+                        <p class="text-sm font-bold text-blue-600"><i class="fa-solid fa-arrow-trend-up mr-2"></i>Umsatz nach 3 Monaten</p>
+                    </div>
+                </div>
+
+                <!-- Defense Case -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col h-full relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-slate-500 text-white text-[10px] font-bold px-2 py-1 uppercase rounded-bl">Nachfolge</div>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Kunststofftechnik</span>
+                        <h3 class="font-bold text-lg text-slate-900 mt-2">"PolymerHidden Champ"</h3>
+                    </div>
+                    <div class="space-y-3 mb-6 flex-grow">
+                        <p class="text-sm text-slate-600"><strong>Challenge:</strong> Drei Einrichter (30 Jahre Erfahrung) gingen gleichzeitig in Rente. Ausschussquote drohte zu explodieren.</p>
+                        <p class="text-sm text-slate-600"><strong>Lösung:</strong> Systematische Interview-Reihe zu Material-Eigenheiten.</p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100">
+                        <p class="text-sm font-bold text-slate-700"><i class="fa-solid fa-shield-halved mr-2"></i>Qualität gesichert</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Service / Timeline Section -->
+        <section id="service" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 section-header mx-auto">Ihr Weg zum "Wissens-Werk"</h2>
+                <p class="text-slate-600 mt-4">Wir liefern die Infrastruktur für Ihr Wachstum. Schlüsselfertig.</p>
+            </div>
+
+            <div class="relative space-y-0" id="timeline-container">
+                <!-- Timeline Items -->
+                <div class="timeline-item relative pl-16 pb-12 group">
+                    <div class="timeline-line"></div>
+                    <div class="absolute left-0 top-0 w-12 h-12 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center text-emerald-600 shadow-sm z-10 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-magnifying-glass-chart text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">1. Analyse & Zielsetzung</h3>
+                    <p class="text-slate-600 mt-2 leading-relaxed max-w-2xl">Geht es um Absicherung (Rente) oder Skalierung (Expansion)? Wir identifizieren die kritischen Wissens-Silos.</p>
+                </div>
+
+                <div class="timeline-item relative pl-16 pb-12 group">
+                    <div class="timeline-line"></div>
+                    <div class="absolute left-0 top-0 w-12 h-12 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center text-emerald-600 shadow-sm z-10 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-wheat-awn text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">2. Die "Wissens-Ernte" (Service)</h3>
+                    <p class="text-slate-600 mt-2 leading-relaxed max-w-2xl">Wir führen die Interviews. Wir begleiten an der Maschine. Ihre Experten müssen nichts vorbereiten, nur ihr Wissen teilen.</p>
+                </div>
+
+                <div class="timeline-item relative pl-16 pb-12 group">
+                    <div class="timeline-line"></div>
+                    <div class="absolute left-0 top-0 w-12 h-12 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center text-emerald-600 shadow-sm z-10 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-microchip text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">3. Veredelung & KI-Training</h3>
+                    <p class="text-slate-600 mt-2 leading-relaxed max-w-2xl">Aus Rohdaten bauen wir Lernpfade, Checklisten und KI-Assistenten. Wir machen Wissen konsumierbar.</p>
+                </div>
+
+                <div class="timeline-item relative pl-16 pb-12 group">
+                    <div class="timeline-line"></div>
+                    <div class="absolute left-0 top-0 w-12 h-12 bg-white border-2 border-emerald-500 rounded-full flex items-center justify-center text-emerald-600 shadow-sm z-10 group-hover:bg-emerald-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fa-solid fa-rocket text-lg"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800">4. Go-Live & Skalierung</h3>
+                    <p class="text-slate-600 mt-2 leading-relaxed max-w-2xl">Übergabe des laufenden Systems. Ihre neuen Mitarbeiter an allen Standorten greifen sofort auf das Expertenwissen zu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-gradient-to-br from-emerald-50 to-slate-100 border-t border-emerald-100 py-16">
+            <div class="max-w-3xl mx-auto px-4 text-center">
+                <i class="fa-solid fa-comments text-4xl text-emerald-600 mb-6"></i>
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Wollen Sie sichern oder skalieren?</h2>
+                <p class="text-slate-600 mb-8">
+                    Lassen Sie uns herausfinden, wo Ihr größter Hebel liegt. 
+                    Kostenlose Potenzialanalyse für Ihre Situation.
+                </p>
+                <form class="bg-white p-6 rounded-xl shadow-lg border border-emerald-100 max-w-md mx-auto text-left transform hover:-translate-y-1 transition-transform">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Email</label>
+                            <input type="email" placeholder="ihre@email.de" class="w-full border border-slate-300 rounded p-3 focus:ring-2 focus:ring-emerald-500 outline-none transition-shadow">
+                        </div>
+                        <button type="button" onclick="alert('Vielen Dank! Wir melden uns in Kürze für die Potenzialanalyse.')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded transition-colors shadow-lg shadow-emerald-600/20">
+                            Potenzialanalyse anfordern
+                        </button>
+                    </div>
+                    <p class="text-xs text-center text-slate-400 mt-4">Diskret & Unverbindlich. Made in Germany.</p>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center text-white mb-4">
+                        <i class="fa-solid fa-network-wired mr-2"></i>
+                        <span class="font-bold uppercase tracking-wider">Wissenswerk</span>
+                    </div>
+                    <p class="text-sm">Wir skalieren deutsche Ingenieurskunst.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Kontakt</h4>
+                    <p class="text-sm hover:text-white transition-colors cursor-pointer">hallo@wissenswerk.de</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Rechtliches</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Impressum</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Datenschutz</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-xs border-t border-slate-800 pt-8">
+                &copy; 2025 Wissenswerk GmbH (i.G.).
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- LOGIC: ROI SWITCHER ---
+        function setROI(mode) {
+            const defenseCard = document.getElementById('roi-defense');
+            const offenseCard = document.getElementById('roi-offense');
+            const highlight = document.getElementById('switch-highlight');
+            const btnDef = document.getElementById('btn-defense');
+            const btnOff = document.getElementById('btn-offense');
+
+            if (mode === 'offense') {
+                defenseCard.classList.add('hidden');
+                offenseCard.classList.remove('hidden');
+                
+                // Animate Switch
+                highlight.style.transform = 'translateX(100%)';
+                
+                // Colors
+                btnDef.classList.replace('text-white', 'text-slate-400');
+                btnOff.classList.replace('text-slate-400', 'text-white');
+                btnOff.classList.add('hover:text-white');
+            } else {
+                offenseCard.classList.add('hidden');
+                defenseCard.classList.remove('hidden');
+                
+                // Animate Switch
+                highlight.style.transform = 'translateX(0)';
+
+                // Colors
+                btnOff.classList.replace('text-white', 'text-slate-400');
+                btnDef.classList.replace('text-slate-400', 'text-white');
+            }
+        }
+
+        // --- NAVIGATION ---
+        function navigateTo(sectionId) {
+            const el = document.getElementById(sectionId);
+            if(el) {
+                const offset = 80;
+                const bodyRect = document.body.getBoundingClientRect().top;
+                const elementRect = el.getBoundingClientRect().top;
+                const elementPosition = elementRect - bodyRect;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
